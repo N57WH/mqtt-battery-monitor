@@ -5,6 +5,16 @@ to Home Assistant via MQTT. All calculations run on the ESP32 — no
 Home Assistant configuration files needed. Sensors auto-discover
 under one device via MQTT discovery.
 
+## Repository layout
+
+```
+mqtt-battery-monitor/
+├── src/        ← Arduino sketch + secrets.h template
+├── docs/       ← Sensor reference and additional notes
+├── assets/     ← Wiring diagram (SVG)
+└── Hardware/   ← 3D printable case (STL) + render
+```
+
 ## What it reports
 
 | Sensor | Type | Description |
@@ -27,6 +37,8 @@ Chemistry selection persists across reboots (saved to NVS flash).
 | [Adafruit INA260](https://learn.adafruit.com/adafruit-ina260-current-voltage-power-sensor-breakout) | I2C voltage sensor (0–36V) |
 | 12V battery | Device under test |
 | 2.1mm DC jack cable | Connects battery to BFF |
+
+STL files for the enclosure and cover are in [`Hardware/`](./Hardware).
 
 ## Wiring
 
@@ -64,6 +76,8 @@ The older XIAO ESP32-C3 uses GPIO6/GPIO7. Do not mix them up.
 | XIAO D4 (GPIO22) | INA260 header SDA | I2C data |
 | XIAO D5 (GPIO23) | INA260 header SCL | I2C clock |
 | INA260 Vin+ | INA260 Vin- | **Jumper wire** |
+
+See [`assets/battery_wiring_diagram_v2.svg`](./assets/battery_wiring_diagram_v2.svg) for the full wiring diagram.
 
 ### Voltage-only jumper
 
