@@ -38,7 +38,12 @@ Chemistry selection persists across reboots (saved to NVS flash).
 | 12V battery | Device under test |
 | 2.1mm DC jack cable | Connects battery to BFF |
 
-STL files for the enclosure and cover are in [`Hardware/`](./Hardware).
+### Enclosure
+
+![Case render](Hardware/Case.png)
+
+STL files for the enclosure and cover are in [`Hardware/`](./Hardware):
+[`Case.stl`](./Hardware/Case.stl) and [`Cover.stl`](./Hardware/Cover.stl).
 
 ## Wiring
 
