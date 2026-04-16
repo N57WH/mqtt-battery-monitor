@@ -116,14 +116,6 @@ headers. No external wiring between BFF and XIAO — the 5V and
 GND connections are made through the socket pins. The BFF terminal
 block provides a 12V pass-through to the INA260 for voltage sensing.
 
-### Assembly
-
-1. Solder the two 7-pin socket headers to the BFF board
-2. Plug the XIAO ESP32-C6 on top of the BFF
-3. Wire INA260 breakout to the XIAO/BFF stack (5 wires)
-4. Jumper INA260 screw terminal Vin+ to Vin-
-5. Connect battery to BFF via DC jack cable
-
 ## Software setup
 
 ### Arduino IDE
@@ -133,7 +125,7 @@ block provides a 12V pass-through to the INA260 for voltage sensing.
    https://espressif.github.io/arduino-esp32/package_esp32_index.json
    ```
 
-2. **Install board package**: Tools → Board Manager → search "esp32" → install
+2. **Install board package**: Tools → Board Manager → search "XIAO esp32c6" → install
 
 3. **Select board**: Tools → Board → esp32 → XIAO_ESP32C6
 
@@ -190,25 +182,6 @@ the selection and recalculates SOC immediately.
 
 After the first USB flash, firmware updates go over WiFi.
 
-### Arduino IDE 2.x (broken port resolution)
-
-The network port upload in Arduino IDE 2.x has a known bug with
-ESP32 boards. Use the command line instead:
-
-1. Arduino IDE: Sketch → Export Compiled Binary
-2. Terminal:
-   ```bash
-   python3 ~/Library/Arduino15/packages/esp32/hardware/esp32/3.3.8/tools/espota.py \
-     -i YOUR_ESP32_IP -p 3232 -a YOUR_OTA_PASSWORD \
-     -f battery_monitor_mqtt.ino.bin
-   ```
-
-Replace the IP and password with your values. The `.bin` file is
-in your sketch folder after the export.
-
-**Shortcut**: save the command as `ota_upload.sh` in your sketch
-folder and run `./ota_upload.sh` for each update.
-
 ### macOS firewall
 
 OTA requires the ESP32 to connect *back* to your computer. If you
@@ -232,7 +205,7 @@ is visible in Home Assistant via the MQTT entities.
 | Off | INA260 not found (check wiring) |
 | Flashing during upload | OTA in progress |
 
-## SOC calculation
+## Sensor Calculations  (See docs/SENSOR.MD)
 
 SOC is estimated via voltage-based piecewise linear interpolation
 using open-circuit voltage tables for three battery chemistries:
