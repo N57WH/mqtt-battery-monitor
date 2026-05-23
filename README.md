@@ -4,6 +4,7 @@ Monitors a 12V battery and reports voltage, SOC, and charge trending
 to Home Assistant via MQTT. All calculations run on the ESP32 — no
 Home Assistant configuration files needed. Sensors auto-discover
 under one device via MQTT discovery.
+
 <img width="413" height="310" alt="Screenshot 2026-05-22 at 8 57 35 PM" src="https://github.com/user-attachments/assets/de1991db-3bfa-46eb-bb58-237a8251a12d" />
 
 
