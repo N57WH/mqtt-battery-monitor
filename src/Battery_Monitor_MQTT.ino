@@ -7,7 +7,7 @@
 //   - SOC (voltage lookup, 3 chemistries)
 //   - Voltage trend (V/hr, rolling 30-min buffer)
 //   - Trend label (Charging/Stable/Discharging)
-//   - Battery low alert (SOC < 70%)
+//   - Battery low alert (SOC < 20%)
 //   - Chemistry selector (MQTT Select, changeable from HA)
 //
 // Zero HA configuration needed — just MQTT integration.
@@ -281,9 +281,9 @@ void publishDiscovery() {
     mqtt.publish(T_DISC_LABEL, p.c_str(), true);
   }
 
-  // --- Battery Low (binary sensor) ---
+  // --- Battery Condition (binary sensor) ---
   {
-    String p = "{\"name\":\"Battery Low\",\"unique_id\":\"bat_mon_low\",";
+    String p = "{\"name\":\"Battery Condition\",\"unique_id\":\"bat_mon_low\",";
     p += state + "," + avail + ",";
     p += "\"device_class\":\"battery\",";
     p += "\"value_template\":\"{{ value_json.low }}\",";
@@ -393,7 +393,7 @@ bool initINA260() {
 
 void setupOTA() {
   ArduinoOTA.setHostname("battery-monitor");
-  //ArduinoOTA.setPassword(OTA_PASSWORD);
+  ArduinoOTA.setPassword(OTA_PASSWORD);
 
   ArduinoOTA.onStart([]() {
     Serial.println("[OTA] Update starting...");
@@ -439,7 +439,7 @@ void readAndPublish() {
   trend = ((int)(trend * 1000 + (trend >= 0 ? 0.5 : -0.5))) / 1000.0;
 
   const char* label = trendLabel(trend);
-  bool low = (soc < 70);
+  bool low = (soc < 20);
 
   // Log
   Serial.printf("[READ] %.3f V | SOC %d%% | Trend %.3f V/hr (%s) | %s: %s\n",
@@ -543,6 +543,3 @@ void loop() {
     readAndPublish();
   }
 }
-
-
-
